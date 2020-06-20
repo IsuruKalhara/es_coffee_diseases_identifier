@@ -1,0 +1,8 @@
+Coffee Leaf Rust
+Nematode
+Brown Eye Spot of Coffee
+Upas Fungus
+Brown Root Fungus
+Black Root Fungus
+White Root Fungus
+Disease Not Detected
