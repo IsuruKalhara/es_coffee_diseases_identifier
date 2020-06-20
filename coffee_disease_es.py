@@ -4,10 +4,9 @@ diseases_list = []
 diseases_symptoms = []
 symptom_map = {}
 d_desc_map = {}
-d_treatment_map = {}
 
 def preprocess():
-	global diseases_list,diseases_symptoms,symptom_map,d_desc_map,d_treatment_map
+	global diseases_list,diseases_symptoms,symptom_map,d_desc_map
 	diseases = open("diseases.txt")
 	diseases_t = diseases.read()
 	diseases_list = diseases_t.split("\n")
@@ -25,11 +24,7 @@ def preprocess():
 		disease_s_data = disease_s_file.read()
 		d_desc_map[disease] = disease_s_data
 		disease_s_file.close()
-		disease_s_file = open("Disease treatments/" + disease + ".txt")
-		disease_s_data = disease_s_file.read()
-		d_treatment_map[disease] = disease_s_data
-		disease_s_file.close()
-	
+			
 
 def identify_disease(*arguments):
 	symptom_list = []
@@ -41,20 +36,15 @@ def identify_disease(*arguments):
 def get_details(disease):
 	return d_desc_map[disease]
 
-def get_treatments(disease):
-	return d_treatment_map[disease]
-
 def if_not_matched(disease):
 		print("")
 		id_disease = disease
 		disease_details = get_details(id_disease)
-		treatments = get_treatments(id_disease)
 		print("")
 		print("The most probable disease that you have is %s\n" %(id_disease))
 		print("A short description of the disease is given below :\n")
 		print(disease_details+"\n")
-		#print("The common medications and procedures suggested are: \n")
-		#print(treatments+"\n")
+
 
 		if(id_disease == "Coffee Leaf Rust"):
 			im = Image.open("images/Coffee Leaf Rust.png")
@@ -73,13 +63,11 @@ def if_not_matched(disease):
 			im.show(title="Brown Fungus")
 		if(id_disease == "Black Root Fungus"):
 			im = Image.open("images/Black Root Fungus.png")
-			im.show(title=Black Fungus)
+			im.show(title="Black Fungus")
 		if(id_disease == "White Root Fungus"):
 			im = Image.open("images/White Root Fungus.png")
 			im.show(title="White Fungus")
 
-# @my_decorator is just a way of saying just_some_function = my_decorator(just_some_function)
-#def identify_disease(headache, back_pain, chest_pain, cough, fainting, sore_throat, fatigue, restlessness,low_body_temp ,fever,sunken_eyes):
 class Greetings(KnowledgeEngine):
 	@DefFacts()
 	def _initial_action(self):
@@ -255,7 +243,6 @@ class Greetings(KnowledgeEngine):
 		print("")
 		id_disease = disease
 		disease_details = get_details(id_disease) 
-		treatments = get_treatments(id_disease)
 		print("")
 		if(id_disease == "Disease Not Detected"):
 			print("Your plant is healthy")
@@ -263,8 +250,7 @@ class Greetings(KnowledgeEngine):
 			print("The most probable disease that the plant has is %s\n" %(id_disease))
 		print("A short description is given below :\n")
 		print(disease_details+"\n")
-		#print("The common medications and procedures suggested are: \n")
-		#print(treatments+"\n")
+
 
 	@Rule(Fact(action='find_disease'),
 		  Fact(yellowLeaves=MATCH.yellowLeaves),
